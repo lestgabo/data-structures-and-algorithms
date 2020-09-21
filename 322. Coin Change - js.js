@@ -28,8 +28,31 @@ https://leetcode.com/problems/coin-change/
  * @param {integer} amount
  * @returns {integer} fewest combination of coins
  */
-const coinChange = () => {};
+const coinChange = (coins, ammount) => {
+    // init dp array
+    let dp = [];
+    for (let i = 0; i < ammount + 1; i++) {
+        dp.push(ammount + 1);
+    }
+    dp[0] = 0;
+    // go through each coin
+    for (let i = 0; i < coins.length; i++) {
+        let coin = coins[i];
+        // go through the dp array
+        for (let j = coin; j < ammount + 1; j++) {
+            dp[j] = Math.min(dp[j], dp[j - coin] + 1);
+        }
+    }
 
-let coins = [1, 2, 3];
+    if (dp[dp.length - 1] === ammount + 1) {
+        return -1;
+    } else {
+        return dp[dp.length - 1];
+    }
+};
+
+let coins = [2, 5];
+// let coins = [5];
+// let coins = [1, 2, 5];
 let amount = 11;
 console.log(coinChange(coins, amount));
