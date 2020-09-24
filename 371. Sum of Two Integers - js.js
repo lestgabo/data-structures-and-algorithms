@@ -18,6 +18,12 @@ https://leetcode.com/problems/sum-of-two-integers/
 
 source: https://www.geeksforgeeks.org/add-two-numbers-without-using-arithmetic-operators/
  */
+/**
+ *
+ * @param {number} a
+ * @param {number} b
+ * @return {number} sum
+ */
 
 const sumOfTwoIntegers = (a, b) => {
     // unitl no more carry
