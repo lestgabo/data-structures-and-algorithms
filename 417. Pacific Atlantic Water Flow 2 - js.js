@@ -34,6 +34,12 @@ Return:
 https://leetcode.com/problems/pacific-atlantic-water-flow/
  */
 
+/**
+ *
+ * @param {number[][]} matrix
+ * @return {number[]} coordinates
+ */
+
 const waterFlow = (matrix) => {
     if (matrix.length === 0) return [];
 
