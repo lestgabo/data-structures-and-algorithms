@@ -55,9 +55,10 @@ const longestRepeatingCharacterReplacement = (s, k) => {
             charCounts[s.charCodeAt(right) - 'A'.charCodeAt(0)] = 1;
         }
         let currentCharCount = charCounts[s.charCodeAt(right) - 'A'.charCodeAt(0)];
-        // console.log('currentCharCount ->', currentCharCount);
-        maxCount = Math.max(maxCount, currentCharCount);
 
+        maxCount = Math.max(maxCount, currentCharCount);
+        console.log('currentCharCount ->', currentCharCount);
+        console.log('maxCount ->', maxCount);
         // right - left - maxCount => number of different characters; number of characters we have to change
         // add 1 because we're adding new letter on
         while (right - left - maxCount + 1 > k) {
@@ -70,6 +71,6 @@ const longestRepeatingCharacterReplacement = (s, k) => {
     return maxLength;
 };
 
-let s = 'ABAAACA';
+let s = 'ABAAABB';
 let k = 1;
 console.log(longestRepeatingCharacterReplacement(s, k));
