@@ -51,7 +51,7 @@ const kFrequentElements = (nums, k) => {
     items.sort((first, second) => {
         return second[1] - first[1];
     });
-    console.log(items);
+    // console.log(items);
     let answer = [];
     for (let i = 0; i < k; i++) {
         answer.push(parseInt(items[i][0]));

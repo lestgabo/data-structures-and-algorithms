@@ -39,7 +39,7 @@ The substring "BBBB" has the longest repeating letters, which is 4.
 https://leetcode.com/problems/longest-repeating-character-replacement/
  */
 
-const longestRepeatingCharacterReplacement = (s, k) => {
+const characterReplacement = (s, k) => {
     let left = 0;
     let maxLength = 0;
     let maxCount = 0;
@@ -57,8 +57,8 @@ const longestRepeatingCharacterReplacement = (s, k) => {
         let currentCharCount = charCounts[s.charCodeAt(right) - 'A'.charCodeAt(0)];
 
         maxCount = Math.max(maxCount, currentCharCount);
-        console.log('currentCharCount ->', currentCharCount);
-        console.log('maxCount ->', maxCount);
+        // console.log('currentCharCount ->', currentCharCount);
+        // console.log('maxCount ->', maxCount);
         // right - left - maxCount => number of different characters; number of characters we have to change
         // add 1 because we're adding new letter on
         while (right - left - maxCount + 1 > k) {
@@ -73,4 +73,4 @@ const longestRepeatingCharacterReplacement = (s, k) => {
 
 let s = 'ABAAABB';
 let k = 1;
-console.log(longestRepeatingCharacterReplacement(s, k));
+console.log(characterReplacement(s, k));

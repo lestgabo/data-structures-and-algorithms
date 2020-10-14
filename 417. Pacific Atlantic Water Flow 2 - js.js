@@ -40,7 +40,7 @@ https://leetcode.com/problems/pacific-atlantic-water-flow/
  * @return {number[]} coordinates
  */
 
-const waterFlow = (matrix) => {
+const pacificAtlantic = (matrix) => {
     if (matrix.length === 0) return [];
 
     let rowLength = matrix.length;
@@ -54,7 +54,29 @@ const waterFlow = (matrix) => {
         .fill()
         .map(() => Array(colLength).fill(0));
 
-    // dfs(matrix, Number.MIN_VALUE, 2, 0, pacific);
+    const dfs = (matrix, pastValue, i, j, ocean) => {
+        // bounds and water constraints
+        if (i < 0 || i > matrix.length - 1 || j < 0 || j > matrix[0].length - 1) {
+            return;
+        } else if (matrix[i][j] < pastValue) {
+            return;
+        } else if (ocean[i][j] === 1) {
+            return;
+        }
+        // make into 1, meaning its been passed through
+        ocean[i][j] = 1;
+
+        // console.log(ocean);
+        // console.log('i j', i, j);
+        // console.log('matrix[i][j],', matrix[i][j]);
+        // console.log('pastValue,', pastValue);
+
+        dfs(matrix, matrix[i][j], i, j - 1, ocean);
+        dfs(matrix, matrix[i][j], i, j + 1, ocean);
+        dfs(matrix, matrix[i][j], i - 1, j, ocean);
+        dfs(matrix, matrix[i][j], i + 1, j, ocean);
+    };
+
     // left and right
     for (let i = 0; i < rowLength; i++) {
         dfs(matrix, 0, i, 0, pacific);
@@ -77,29 +99,6 @@ const waterFlow = (matrix) => {
         }
     }
     return answer;
-};
-
-const dfs = (matrix, pastValue, i, j, ocean) => {
-    // bounds and water constraints
-    if (i < 0 || i > matrix.length - 1 || j < 0 || j > matrix[0].length - 1) {
-        return;
-    } else if (matrix[i][j] < pastValue) {
-        return;
-    } else if (ocean[i][j] === 1) {
-        return;
-    }
-    // make into 1, meaning its been passed through
-    ocean[i][j] = 1;
-
-    // console.log(ocean);
-    // console.log('i j', i, j);
-    // console.log('matrix[i][j],', matrix[i][j]);
-    // console.log('pastValue,', pastValue);
-
-    dfs(matrix, matrix[i][j], i, j - 1, ocean);
-    dfs(matrix, matrix[i][j], i, j + 1, ocean);
-    dfs(matrix, matrix[i][j], i - 1, j, ocean);
-    dfs(matrix, matrix[i][j], i + 1, j, ocean);
 };
 
 let matrix = [

@@ -43,46 +43,42 @@ const connectedComponents = (n, edges) => {
      * run dfs into each node, if current value is -1 then make it 1. then call dfs making each passed node as 1, once theres no more -1 found, increment counter, move on to next node
      *
      */
-    console.log('edges ->', edges);
+    // console.log('edges ->', edges);
     let counter = 0;
     let nodeValues = [];
     for (let i = 0; i < n; i++) {
         nodeValues.push(-1);
     }
 
+    const dfs = (node, nodeValues) => {
+        nodeValues[node] = 1;
+        // for each adjacent node, do dfs
+        for (let j = 0; j < edges.length; j++) {
+            let edge = edges[j];
+            if (edge.includes(node)) {
+                // console.log('edge ->', edge);
+                let connectedNode = edge[0];
+                if (edge[0] === node) {
+                    connectedNode = edge[1];
+                }
+                // console.log('connectedNode ->', connectedNode);
+                // call dfs on connected node
+                if (nodeValues[connectedNode] === -1) {
+                    dfs(connectedNode, nodeValues);
+                }
+            }
+        }
+    };
+
     for (let i = 0; i < n; i++) {
         // i is a node
         if (nodeValues[i] === -1) {
             dfs(i, nodeValues);
-            console.log('nodeValues ->', nodeValues);
+            // console.log('nodeValues ->', nodeValues);
             counter++;
         }
-        // for (let j = 0; j < edges.length; j++) {
-        //     let edge = edges[j];
-
-        // }
     }
     return counter;
-};
-
-const dfs = (node, nodeValues) => {
-    nodeValues[node] = 1;
-    // for each adjacent node, do dfs
-    for (let j = 0; j < edges.length; j++) {
-        let edge = edges[j];
-        if (edge.includes(node)) {
-            console.log('edge ->', edge);
-            let connectedNode = edge[0];
-            if (edge[0] === node) {
-                connectedNode = edge[1];
-            }
-            console.log('connectedNode ->', connectedNode);
-            // call dfs on connected node
-            if (nodeValues[connectedNode] === -1) {
-                dfs(connectedNode, nodeValues);
-            }
-        }
-    }
 };
 
 let n = 5;
