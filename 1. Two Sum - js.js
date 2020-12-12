@@ -32,8 +32,35 @@ Constraints:
     Only one valid answer exists.
  */
 
-const solution = (nums, target) => {};
+const solution = (nums, target) => {
+    // use hash to save needed pair on current index
+    // when iterating through nums, we subtract target with current num
+    // that difference is a number we need to find in nums
+    // therefore, we save that difference in an array
+    // when iterating through nums, we check if current num exist in hash
+    // if it does, then we found a pair
+    let myHash = {};
+    let answer = [];
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i].toString();
+        let missingPair = target - nums[i];
+        // console.log('num: ', num);
+        // console.log('myHash[num]: ', myHash[num]);
+        if (myHash[num] >= 0) {
+            // console.log('inside the if');
+            // console.log('myHash[num]: ', myHash[num]);
+            answer.push(myHash[num]);
+            answer.push(i);
+        } else {
+            myHash[missingPair] = i;
+        }
+        // console.log('myhash: ', myHash);
+    }
+    return answer;
+};
 
-const nums = [2, 7, 11, 15];
-const target = 9;
+// const nums = [2, 7, 11, 15];
+const nums = [3, 2, 4];
+const target = 6;
+// const target = 9;
 console.log(solution(nums, target));
