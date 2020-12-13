@@ -156,11 +156,11 @@ const removeComments = (source) => {
         for (let i = 0; i < line.length; i++) {
             // not inside '/*' comment
             if (insideBlockComment === false) {
-                // if '//' comment
+                // if '//' comment, ignore rest of line
                 if (line[i] + line[i + 1] === '//') {
                     break;
                 }
-                // if '/*' start inside block and move to next index
+                // if '/*' turn on insideBlock boolean and move to next index
                 else if (line[i] + line[i + 1] === '/*') {
                     insideBlockComment = true;
                     i++;
@@ -170,16 +170,16 @@ const removeComments = (source) => {
                     localLine += line[i];
                 }
             }
-            // inside '/*' comment
+            // inside '/*' block comment
             else {
-                // found '*/' closing comment, turn off boolean and move on to next index
+                // found '*/' closing comment, turn off insideBlock boolean and move on to next index
                 if (line[i] + line[i + 1] === '*/') {
                     insideBlockComment = false;
                     i++;
                 }
             }
         }
-        // if not inside block comment and localLine not empty, add to answer
+        // if not inside block comment and localLine not empty, add to answer, reset localLine
         if (localLine.length !== 0 && insideBlockComment === false) {
             answer.push(localLine);
             localLine = '';
@@ -189,19 +189,19 @@ const removeComments = (source) => {
 };
 
 // const source = ['a/*comment', 'line', 'more_comment*/b', 'test // should be gone']; // expected: ["ab"]
-// const source = ['test // test', '/* This is a test', ' */ uwu'];
-const source = [
-    '/*Test program */',
-    'int main()',
-    '{ ',
-    '  // variable declaration ',
-    'int a, b, c;',
-    '/* This is a test',
-    '   multiline  ',
-    '   comment for ',
-    '   testing */',
-    'a = b + c;',
-    '}',
-];
+const source = ['test // test', '/* This is a test', ' */ uwu'];
+// const source = [
+//     '/*Test program */',
+//     'int main()',
+//     '{ ',
+//     '  // variable declaration ',
+//     'int a, b, c;',
+//     '/* This is a test',
+//     '   multiline  ',
+//     '   comment for ',
+//     '   testing */',
+//     'a = b + c;',
+//     '}',
+// ];
 // expected: ["int main()","{ ","  ","int a, b, c;","a = b + c;","}"]
 console.log(removeComments(source));
