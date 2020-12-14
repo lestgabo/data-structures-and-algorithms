@@ -49,8 +49,8 @@ Constraints:
  */
 
 /**
- ** param {number[][]} graph
- ** return {number[][]} path
+ ** @param {number[][]} graph
+ ** @return {number[][]} path
  */
 const solution = (graph) => {
     // create path
