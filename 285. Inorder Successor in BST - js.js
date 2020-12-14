@@ -37,10 +37,19 @@ Note:
 
 const solution = (root, p) => {
     // two possibilities for a node's successor
-    // 1. no right node therefore the successor is up the tree
-    // - go up until the node is a parent's left, them that parent is the successor
-    // 2. has right node, succ is on the right side
-    // - go 1 right, and left until cant left anymore, that node is the successor
+    /**
+    If the node has a right child, go one step right and then left till you can. Return the successor.
+
+    Otherwise, implement iterative inorder traversal. While there are still nodes in the tree or in the stack:
+
+        Go left till you can, adding nodes in stack.
+
+        Pop out the last node. If its predecessor is equal to p, return that last node. Otherwise, save that node to be the predecessor in the next turn of the loop.
+
+        Go one step right.
+
+    If we're here that means the successor doesn't exit. Return null.
+    */
 
     let stack = [];
     let inorder = null;
@@ -55,13 +64,15 @@ const solution = (root, p) => {
 
     while (stack.length !== 0 || root) {
         // go left till you can
+
         while (root) {
             stack.push(root);
             root = root.left;
         }
-
-        // all logic around the node
+        console.log('stack: ', stack);
+        // now root becomes the left most
         root = stack.pop();
+        console.log('stack popped, new root: ', root);
         // if previous node was equal to p, then the current node is its successor
         if (inorder === p.val) {
             return root;
@@ -84,7 +95,9 @@ function TreeNode(val, left, right) {
 }
 
 // const root = new TreeNode(2, new TreeNode(2));
-const root = new TreeNode(2, new TreeNode(1), new TreeNode(3));
-const p = new TreeNode(2);
-// const root = new TreeNode(5, new TreeNode(1), new TreeNode(4, new TreeNode(3), new TreeNode(6)));
+// const root = new TreeNode(2, new TreeNode(1), new TreeNode(3));
+// const p = new TreeNode(2);
+const root = new TreeNode(5, new TreeNode(3, new TreeNode(2, new TreeNode(1)), new TreeNode(4)), new TreeNode(6));
+const p = new TreeNode(3);
+
 console.log(solution(root, p));
