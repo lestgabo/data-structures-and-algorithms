@@ -1,5 +1,5 @@
-/**912. 
- ** Sort an Array
+/**
+ ** 912. Sort an Array
  ** Medium
  ** https://leetcode.com/problems/sort-an-array/
 
@@ -95,8 +95,53 @@ const solution = (nums) => {
             }
         }
     };
-    mergeSort(nums);
+
+    const quickSort = (nums) => {
+        /**
+         **  algorithm
+            if array length less than 1 return array (already sorted)
+            1. pick a pivot
+            2. partition the array into two sub-arrays: elements less than the pivot 
+               and elemnts greater than the pivot
+            3. call quicksort recursively on the two subarrays
+            
+            - inside 2, the partition:
+                - the pivot should not be part of the partitioned arrays. pop() it
+                - then iterate through that pivotless array comparing each element to pivot
+                - if lesser, partition it to left array, greater to right
+            - the quicksort function will then return (quicksort(left) + pivot + quicksort(right)) 
+        */
+        if (nums.length < 2) {
+            return nums;
+        } else {
+            let pivot = nums.pop();
+            let length = nums.length;
+            let result = [];
+            let less = [];
+            let greater = [];
+
+            for (let i = 0; i < length; i++) {
+                if (nums[i] <= pivot) {
+                    less.push(nums[i]);
+                } else {
+                    greater.push(nums[i]);
+                }
+            }
+            // console.log('less: ', less);
+            // console.log('greater: ', greater);
+            // recursively call quicksort on left and right of pivot
+            result = result.concat(quickSort(less), pivot, quickSort(greater));
+            nums.splice(0, nums.length, ...result);
+            return nums;
+        }
+    };
+
+    // mergeSort(nums);
+    quickSort(nums);
     return nums;
+    // let result = quickSort(nums);
+    // console.log('nums after sort: ', result);
+    // return result;
 };
 
 const nums = [5, 2, 3, 1];
