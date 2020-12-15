@@ -66,18 +66,53 @@ Constraints:
  * @return {Node}
  */
 
- const solution = ()
+const solution = (node) => {
+    // console.log(node);
+    // two ways to get the successor from the node (no access to root)
+    /**
+        1. node has a right branch 
+            - go right once, then left until left is null
+            - that left most node is the successor
+        2. node does not have a right branch
+            - go up through the node's parent until the node is a left child of its parent
+            - that parent is the successor (can have no successor)
+     */
+    if (node) {
+        // successor on the right
+        if (node.right) {
+            node = node.right;
+            while (node.left) {
+                node = node.left;
+            }
+            return node;
+        }
+        // successor on the upper tree
+        while (node.parent && node === node.parent.right) {
+            node = node.parent;
+        }
+        return node.parent;
+    }
 
- /**
+    return null;
+};
+
+/**
  ** Definition for a Node.
  */
-function Node(val) {
+function TreeNode(val) {
     this.val = val;
     this.left = null;
     this.right = null;
     this.parent = null;
 }
 
-const root = new TreeNode(2, new TreeNode(1), new TreeNode(3));
-const node = 1;
+const one = new TreeNode(1);
+const three = new TreeNode(3);
+const two = new TreeNode(2);
+one.parent = two;
+three.parent = two;
+two.left = one;
+two.right = three;
+// const root = new TreeNode(2, new TreeNode(1, null, null, new TreeNode(2)), new TreeNode(3, null, null, new TreeNode(2)));
+const node = two;
 console.log(solution(node));
