@@ -27,6 +27,7 @@ Constraints:
  */
 
 const solution = (nums) => {
+    // merge sort
     const mergeSort = (nums) => {
         /**
          ** algorithm
@@ -96,6 +97,7 @@ const solution = (nums) => {
         }
     };
 
+    // quick sort
     const quickSort = (nums) => {
         /**
          **  algorithm
