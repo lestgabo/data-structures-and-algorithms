@@ -25,7 +25,7 @@ class Solution:
                 curr_sum.append(0 + nums[i+1])
             else:
                 curr_sum.append(curr_sum[i] + nums[i+1])
-
+        print(curr_sum)
         return max(curr_sum)
 
         # # print(sum(nums))
@@ -40,7 +40,8 @@ class Solution:
 
 # nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 # nums = [-2, 1, -3, 4, -1, -2, -1, 5, 4]
-nums = [-2, -3, -1]
+# nums = [-2, -3, -1]
 # nums = [4, -1, 2, 1, 5, 4]
+nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 sol = Solution()
 print(sol.maxSubarray(nums))
