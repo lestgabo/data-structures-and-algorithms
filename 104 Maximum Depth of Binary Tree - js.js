@@ -1,6 +1,7 @@
-/*
-104. Maximum Depth of Binary Tree
-Easy
+/** 
+    ** 104. Maximum Depth of Binary Tree
+    ** Easy
+    ** https://leetcode.com/problems/maximum-depth-of-binary-tree/
 
 Given a binary tree, find its maximum depth.
 
@@ -29,7 +30,7 @@ function TreeNode(val, left, right) {
     this.right = right === undefined ? null : right;
 }
 
-const solution = (root) => {
+const solution2 = (root) => {
     let level = 0;
     this.depth = 0;
 
@@ -45,8 +46,21 @@ const solution = (root) => {
     return this.depth;
 };
 
-let root;
-root = new TreeNode(3, new TreeNode(9), new TreeNode(20, new TreeNode(15), new TreeNode(7, new TreeNode(15), null)));
+// makes more sense
+const solution = (root) => {
+    // on leaf, return 0 from left and right
+    // therefore, going up the stack,
+    // that leaf returns: Math.max(0, 0)+1 = 1
+    // teste
+    if (!root) return 0;
 
-console.log('root ->', root);
+    let left = solution(root.left);
+    let right = solution(root.right);
+
+    return Math.max(left, right) + 1;
+};
+
+let root;
+root = new TreeNode(3, new TreeNode(9), new TreeNode(20, new TreeNode(15), new TreeNode(7, null, null)));
+
 console.log(solution(root));
