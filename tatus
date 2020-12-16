@@ -1,0 +1,234 @@
+[33mcommit 32c36c03dbb49697ba2862337b3c9a622a22dd86[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Tue Dec 15 05:31:09 2020 -0800
+
+    Add 200. Number of Islands
+
+[33mcommit c948d08581684257432976dc727c176eedcca39c[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Tue Dec 15 05:05:19 2020 -0800
+
+    Add 74. Search a 2D Matrix
+
+[33mcommit 4c6fc7075364fa106d1f03f88bcfaec662787d09[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Tue Dec 15 04:03:35 2020 -0800
+
+    Add 116. Populating Next Right Pointers in Each Node116. Populating Next
+    Right Pointers in Each Node
+
+[33mcommit 4d8076bc987b25da572c3a6887860011daafcadd[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Tue Dec 15 02:51:04 2020 -0800
+
+    Add 24. Swap Nodes in Pairs
+
+[33mcommit 7bca1487803ab4c310f57965080f62dedfaffaad[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Tue Dec 15 01:07:06 2020 -0800
+
+    Add 23. Merge k Sorted Lists
+
+[33mcommit 75ae858bf2f56e301e099f8bbab7dd97b5f9cbf0[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 20:55:46 2020 -0800
+
+    Add 148. Sort List
+
+[33mcommit 20df31a19e3bfa5e827074f4cb04f0dab95f7a82[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 19:59:45 2020 -0800
+
+    Add 21. Merge Two Sorted Lists
+
+[33mcommit 4a3bc5eaf4dd09a132986a5d948606865441f5fa[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 19:32:45 2020 -0800
+
+    Add 105. Construct Binary Tree from Preorder and Inorder Traversal
+
+[33mcommit 4f00496e5423f6fa9ee8d405739b28c52866845b[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 18:16:41 2020 -0800
+
+    Add Quick Sort code into 912. Sort an Array
+
+[33mcommit b88dee379f36a9a6e71b5731c11f95d29edaf530[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 17:18:56 2020 -0800
+
+    Add 912. Sort an Array
+
+[33mcommit e269a957ede02ccb6f6f7490991889a25078bcd9[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 16:12:18 2020 -0800
+
+    Complete 510. Inorder Successor in BST II
+
+[33mcommit e5a6d34462f6faafb258df3fa90fde376e8bc279[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 15:40:48 2020 -0800
+
+    Update comment algorithm for 285. Indorder Successor in BST
+
+[33mcommit 059bf7d550c966f963f8eedf01475731b3952581[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 04:54:04 2020 -0800
+
+    Add 285. Inorder Successor in BST
+
+[33mcommit cc71a00e8bfadd8b8ade4e1b44cd10ee15fbde6c[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 03:40:40 2020 -0800
+
+    Add 98. Validate Binary Search Tree
+
+[33mcommit 173d1fe6e702910089e06f33d57e35ca96f45e13[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 03:09:38 2020 -0800
+
+    Add 450. Delete Node in a BST
+
+[33mcommit 37d41a00f3352d13d485d9ae78725fb79f345341[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Dec 14 02:03:13 2020 -0800
+
+    Add 797. All Paths From Source to Target
+
+[33mcommit 8f98172cb0c250275af90d2a33c6a26cf0af95af[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Sun Dec 13 23:23:10 2020 -0800
+
+    Add 443. String Compression
+
+[33mcommit 43167d1bdb6d4c4579ce5d502169fedcc49b108d[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Sun Dec 13 19:24:35 2020 -0800
+
+    Add 54. Spiral Matrix
+
+[33mcommit 7b195acfff09db42c4713209e207adb0768e4564[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Sun Dec 13 03:24:04 2020 -0800
+
+    Fix comments of 722. Remove Comments
+
+[33mcommit df39b5c0bd242127c9ea64dca45ed7c595ddd357[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Sun Dec 13 03:09:38 2020 -0800
+
+    Add 722. Remove Comments
+
+[33mcommit f2822eb64110f833fb119226e4a0dfcff8d8d7b1[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Sat Dec 12 01:28:03 2020 -0800
+
+    Add 41. First Missing Positive
+
+[33mcommit ffc06f8cd24eb2ade127c2f3b4be2aef23bd5546[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Sat Dec 12 00:13:20 2020 -0800
+
+    Add 167. Two Sum II and 79. Word Search
+
+[33mcommit 4ffcc27bd34845953727985ab70ade093fc7fa80[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Wed Dec 9 17:38:38 2020 -0800
+
+    Add 151. Reverse Words in a String [medium]
+
+[33mcommit 52851f6e859aa3ae7aadd6cf42159b03f09a5b30[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Wed Oct 14 14:26:49 2020 -0700
+
+    Signed-off-by: lestgabo <lestgabo@gmail.com>
+
+[33mcommit 3cb518c756ea9c0ff2f84e454189e557c9d081ce[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Tue Sep 29 19:04:45 2020 -0700
+
+    Add 424 longest repeating character replacement
+
+[33mcommit 6a4fa596d1a9aa4145e7a581bbbc18a5a1415322[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Sun Sep 27 19:19:31 2020 -0700
+
+    Add 424 longest repeating character replacement
+
+[33mcommit 3ebc633bbb8fb8f977ca0301a04677e4b89314a4[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Thu Sep 24 18:08:54 2020 -0700
+
+    Do 417 pacific atlantic water flow, more efficiently
+
+[33mcommit 3bd245f2323f2072967beb005988771bce2ee4d3[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Thu Sep 24 14:46:13 2020 -0700
+
+    Add 417 pacific atlantic water flow
+
+[33mcommit 1d15d6730cee69117820950b19a7e5168ed544e3[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Wed Sep 23 16:51:26 2020 -0700
+
+    Add 371 sum of two integers
+
+[33mcommit cdab4de3167667f5e6f7d16a8f2da3a9fd191868[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Sep 21 20:16:58 2020 -0700
+
+    Add 367 top k frequent elements
+
+[33mcommit b33e62029f98beebf317990dcaa695116638c34f[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Mon Sep 21 01:11:30 2020 -0700
+
+    Add 338 counting bits -> not most optimal, but accepted
+
+[33mcommit dfa65950d0f28a821160a65eea954ad21562b018[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Sun Sep 20 19:21:58 2020 -0700
+
+    Fix name of 323
+
+[33mcommit d2d060949671741fd6ef3754b66c5b43f37d8ddc[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Sun Sep 20 19:18:53 2020 -0700
+
+    Add coin change and number of connected components in undirected graph
+
+[33mcommit 9b1212194bf3db5bd8680946bdc71ad074eb30bf[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Fri Sep 4 19:49:30 2020 -0700
+
+    Add current solutions to leetcode
+
+[33mcommit 780590027e73df81d324cc17c8485952a621cd28[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Fri Sep 4 19:41:13 2020 -0700
+
+    add .gitignore
+
+[33mcommit 194848240371280336dc7d79358118b40562f812[m
+Author: Lestley Gabo <lestgabo@gmail.com>
+Date:   Fri Sep 4 19:34:03 2020 -0700
+
+    Update README.md
+
+[33mcommit 2a9230ced6e88010cd6cb8cfaa4e5daaa8eaca6a[m
+Author: Lestley Gabo <lestgabo@gmail.com>
+Date:   Fri Sep 4 19:33:40 2020 -0700
+
+    Update README.md
+
+[33mcommit 6c4d169df74db0ede8134bb5c7280cea656fe5f0[m
+Author: Lestley Gabo <lestgabo@gmail.com>
+Date:   Fri Sep 4 19:33:25 2020 -0700
+
+    Update README.md
+
+[33mcommit ccfe3baf012adb48cfd04eb33d9322b208fa9260[m
+Author: lestgabo <lestgabo@gmail.com>
+Date:   Fri Sep 4 19:32:04 2020 -0700
+
+    first commit
