@@ -146,23 +146,6 @@ TicTacToe.prototype.move = function (row, col, player) {
     }
     // no player won yet
     return 0;
-
-    // const i = player === 1 ? 1 : -1;
-
-    // this.row[row] += i;
-    // this.col[col] += i;
-    // if (row === col) this.diag += i;
-    // if (col === this.len - row - 1) this.revDiag += i;
-
-    // if (
-    //     Math.abs(this.row[row]) === this.len ||
-    //     Math.abs(this.col[col]) === this.len ||
-    //     Math.abs(this.diag) === this.len ||
-    //     Math.abs(this.revDiag) === this.len
-    // )
-    //     return player;
-
-    // return 0;
 };
 
 /**
