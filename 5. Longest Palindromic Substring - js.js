@@ -69,8 +69,8 @@ const longestPalindromicSubstring = (s) => {
     return result;
 };
 
-const s = 'cccccc';
-// const s = 'abbbaaaa';
+// const s = 'cccccc';
+const s = 'abbbaaaa';
 // const s = 'aca';
 // const s = 'aab';
 // const s = 'babad';
