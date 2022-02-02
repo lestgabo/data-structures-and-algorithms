@@ -90,7 +90,9 @@ var removeNthFromEnd = function (head, n) {
 
             if (!next.next && next.next !== null) {
                 head1.next = next;
+                console.log('inside !next.next check: ', next)
             } else {
+                console.log('inside else: ', next, 'next.next: ', next.next)
                 head1.next = next.next;
             }
         }
@@ -114,16 +116,17 @@ function ListNode(val, next) {
 // head.next = new ListNode(2);
 // const n = 3; // nth node from the end of the list
 
-const head = new ListNode(3);
-head.next = new ListNode(4);
-head.next.next = new ListNode(5);
-const n = 2; //expected: [1,2,3,5]
-// const n = 1; //expected: [1,2,3,5]
+// const head = new ListNode(3);
+// head.next = new ListNode(4);
+// head.next.next = new ListNode(5);
+// const n = 2; //expected: [3,5]
+// const n = 1; //expected: [3,4]
 
-// const head = new ListNode(1);
-// head.next = new ListNode(2);
-// head.next.next = new ListNode(3);
-// head.next.next.next = new ListNode(4);
-// head.next.next.next.next = new ListNode(5);
-// const n = 3; //expected: [1,2,3,5]
+const head = new ListNode(1);
+head.next = new ListNode(2);
+head.next.next = new ListNode(3);
+head.next.next.next = new ListNode(4);
+// const n = 3; //expected: [1,3,4]
+const n = 2; //expected:    [1,2,4]
+// const n = 1; //expected: [1,2,3]
 console.log(removeNthFromEnd(head, n));
