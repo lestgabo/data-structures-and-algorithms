@@ -70,34 +70,36 @@ const uniquePaths = (m, n) => {
     // fill matrix with 0s
     let solution = Array(m).fill().map(() => Array(n).fill(0));
 
-    // fill first row with 1s
-    for ( let i = 0; i < m; i++) {
-        for (let j = 0; j < n; j++) {
-            if (i === 0) {
-                solution[i][j] = 1;
-            }
-        }
-    }
+    // // fill first row with 1s
+    // for ( let i = 0; i < m; i++) {
+    //     for (let j = 0; j < n; j++) {
+    //         if (i === 0) {
+    //             solution[i][j] = 1;
+    //         }
+    //     }
+    // }
 
-    // fill first column with 1s
-    for (let i = 0; i < m; i++) {
-        for (let j = 0; j < n; j++) {
-            if (j === 0) {
-                solution[i][j] = 1;
-            }
-        }
-    }
+    // // fill first column with 1s
+    // for (let i = 0; i < m; i++) {
+    //     for (let j = 0; j < n; j++) {
+    //         if (j === 0) {
+    //             solution[i][j] = 1;
+    //         }
+    //     }
+    // }
 
     // add top and left to get middle cells
     for (let i = 0; i < m; i++) {
         for (let j = 0; j < n; j++) {
             if (i - 1 >= 0 && j - 1 >= 0) {
                 solution[i][j] = solution[i - 1][j] + solution[i][j - 1];
+            } else {
+                solution[i][j] = 1
             }
-        }
+        } 
     }
 
-    // console.log('first row: ', solution)
+    console.log('sol: ', solution)
     return solution[m-1][n-1];
 };
 
