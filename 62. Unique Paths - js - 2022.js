@@ -61,22 +61,44 @@ const uniquePaths = (m, n) => {
     return uniquePaths(m - 1, n) + uniquePaths(m, n - 1);
      * 
      * second approach, create the table itself:
+     *  - fill first row with 1s
+     *  - fill second row with 1s
+     *  - get middle cells by adding top and left cells adjacent to current cell
      *
      */
-    let solution = [];
 
-    // fill first row with 1 else 0
-    for ( let i = 0; i < n; i++) {
-        for (let j = 0; j < m; j++) {
+    // fill matrix with 0s
+    let solution = Array(m).fill().map(() => Array(n).fill(0));
+
+    // fill first row with 1s
+    for ( let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
             if (i === 0) {
                 solution[i][j] = 1;
-            } else {
-                solution[i][j] = 0;
             }
         }
     }
-    console.log('first row: ', solution)
- 
+
+    // fill first column with 1s
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (j === 0) {
+                solution[i][j] = 1;
+            }
+        }
+    }
+
+    // add top and left to get middle cells
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (i - 1 >= 0 && j - 1 >= 0) {
+                solution[i][j] = solution[i - 1][j] + solution[i][j - 1];
+            }
+        }
+    }
+
+    // console.log('first row: ', solution)
+    return solution[m-1][n-1];
 };
 
 
