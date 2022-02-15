@@ -50,6 +50,65 @@ Follow up: Could you find an algorithm that runs in O(m + n) time?
  */
  
 const minWindow = (s, t) => {
+    /**
+     * use left and right pointers
+     * use right to expand, left to contract window if still desirable
+     * 
+     */
+    let left = 0;
+    let right = 0;
+
+    let minimumWindow = '';
+    let minimumWindowSize = Math.min();
+
+    if (t.length > s.length) return "";
+
+    const isDesirable = (window) => {
+        let tempT = t.split('');
+
+        // check for t inside window substring
+        for (let i = 0; i < window.length; i++) {
+            let windowChar = window[i];
+
+            if (tempT.includes(windowChar)) {
+                tempT.splice(tempT.indexOf(windowChar), 1);
+            }
+        }
+        return Array.isArray(tempT) && !tempT.length
+    }
+
+    while (right < s.length) {
+        let window = s.slice(left, right + 1);
+        let desirable = false;
+
+        // console.log('before window: ', window)
+        desirable = isDesirable(window);
+        // console.log('desirable: ', desirable)
+
+        // contract left and t inside substring (desirable)
+        while (left <= right && desirable) {
+            // console.log('minimumWindow: ', minimumWindow)
+            // console.log('window: ', window)
+            // update minimumWindow if the new window is smaller
+            if (window.length <= minimumWindowSize) minimumWindow = window;
+            // update minimum window size
+            minimumWindowSize = Math.min(minimumWindowSize, window.length)
+             
+            // contract left
+            left++;
+            window = s.slice(left, right + 1);
+
+            desirable = isDesirable(window);
+        }
+        right++;
+    }
+
+    return minimumWindow;
+};
+
+
+// 129 / 266 test cases passed.
+const minWindow_wrong = (s, t) => {
     let tSet = new Set(t);
 
     if (s.length === 0 || s === "") return "";
@@ -102,10 +161,11 @@ const minWindow = (s, t) => {
     }
     return minimumWindow;
 };
-
-Input: s = "ab", t = "b"
-// Input: s = "a", t = "b"
+// s = "cabwefgewcwaefgcf", t = "cae" // "cwae"
+// Input: s = "ab", t = "b"
+// Input: s = "a", t = "b" // ""
+// Input: s = "aa", t = "bb" // ""
 // Input: s = "a", t = "aa"
 // Input: s = "a", t = "a"
-// Input: s = "ADOBECODEBANC", t = "ABC"
+Input: s = "ADOBECODEBANC", t = "ABC" // "BANC"
 console.log(minWindow(s, t));
