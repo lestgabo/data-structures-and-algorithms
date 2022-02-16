@@ -42,7 +42,7 @@ Constraints:
  * @return {boolean}
  */
 
-var exist = function (board, word) {
+const exist = (board, word) => {
     // use dfs to on each neighbor letter -> going deeper if the needed letter is matching
     // iterate through the whole board, speed is O( M x N )
 
