@@ -58,82 +58,88 @@ const exist = (board, word) => {
      * - once we cannot move anymore through DFS, we delete the current cell from the set, 
      *   freeing the cell and essentially backtracking
      * - inside DFS boundary check is NEEDED
+     * 
+     * - 2nd approach - because using this.wordFound didnt feel right
+     *   - use result variable as boolean and return that for every DFS
      */
 
     const helperDFS = (board, word, wordIndex, i, j, backtrackSet) => {      
         let currentCell = `${i}${j}`
 
         // console.log('this.wordFound: ', this.wordFound)
-        // console.log('currentCell: ', currentCell)
+        console.log('currentCell: ', currentCell)
 
         // if boundaries met, end the DFS, free up the current cell in backtrack set
         if (i < 0 || 
             i >= board.length || 
             j < 0 || 
             j >= board[0].length || 
-            wordIndex >= word.length || 
-            this.wordFound === true) {
-
+            wordIndex >= word.length) {
             backtrackSet.delete(currentCell);
-            return;
+            return false;
         }
-        
+
+        console.log('wordIndex: ', wordIndex)
+        console.log('word.length: ', word.length)
+        console.log('board[i][j]: ', board[i][j])
+        console.log('word[wordIndex]: ', word[wordIndex])
+        console.log('currentLetter === word[wordIndex]: ', board[i][j] === word[wordIndex])
+        console.log('wordIndex === word.length - 1: ', wordIndex === word.length - 1)
+
+        // word found
+        if (board[i][j] === word[wordIndex] && wordIndex === word.length - 1) {
+            console.log('word was found!')
+            backtrackSet.delete(currentCell);
+            return true;
+        }
+
         backtrackSet.add(currentCell);
         wordIndex++;
         let nextLetter = word[wordIndex];
-    
-        // word found
-        if (wordIndex === word.length) {
-            // console.log('word was found!')
-            this.wordFound = true;
-            return;
-        }
 
-        // console.log('backtrackSet.has(currentCell): ', backtrackSet.has(currentCell));
-        // console.log('backtrackSet: ', backtrackSet);
-        // console.log('wordIndex: ', wordIndex)
-        // console.log('word.length: ', word.length)
-        // console.log('board[i][j]: ', board[i][j])
-        // console.log('word[wordIndex]: ', word[wordIndex])
-        // console.log('currentLetter === word[wordIndex]: ', board[i][j] === word[wordIndex])
-        // console.log('backtrackSet: ', backtrackSet)
-        // console.log('*********************************')
+        console.log('backtrackSet: ', backtrackSet)
+        console.log('*********************************')
 
-    
+        let results = false;
          // DFS up down left right
-        if (i - 1 >= 0 && board[i - 1][j] === nextLetter && !backtrackSet.has(`${i - 1}${j}`) ) {
-            helperDFS(board, word, wordIndex, i - 1, j, backtrackSet)
+        if (i - 1 >= 0 && board[i - 1][j] === nextLetter && !backtrackSet.has(`${i - 1}${j}`) && !results) {
+            results = helperDFS(board, word, wordIndex, i - 1, j, backtrackSet)
         }
-        if (i + 1 < board.length && board[i + 1][j] === nextLetter && !backtrackSet.has(`${i + 1}${j}`) ) {
-            helperDFS(board, word, wordIndex, i + 1, j, backtrackSet)
+        if (i + 1 < board.length && board[i + 1][j] === nextLetter && !backtrackSet.has(`${i + 1}${j}`) && !results) {
+            results = helperDFS(board, word, wordIndex, i + 1, j, backtrackSet)
         }
-        if (j - 1 >= 0 && board[i][j - 1] === nextLetter && !backtrackSet.has(`${i}${j - 1}`)) {
-            helperDFS(board, word, wordIndex, i, j - 1, backtrackSet)
+        if (j - 1 >= 0 && board[i][j - 1] === nextLetter && !backtrackSet.has(`${i}${j - 1}`) && !results) {
+            results = helperDFS(board, word, wordIndex, i, j - 1, backtrackSet)
         }
-        if (j + 1 < board[0].length && board[i][j + 1] === nextLetter && !backtrackSet.has(`${i}${j + 1}`) ) {
-            helperDFS(board, word, wordIndex, i, j + 1, backtrackSet)
+        if (j + 1 < board[0].length && board[i][j + 1] === nextLetter && !backtrackSet.has(`${i}${j + 1}`) && !results) {
+            results = helperDFS(board, word, wordIndex, i, j + 1, backtrackSet)
         } 
         
         backtrackSet.delete(currentCell);
-    };
 
-    this.wordFound = false;
+        return results;
+    };
     
     // iterate through board
     for (let i = 0; i < board.length; i++) {
         for (let j = 0 ; j < board[0].length; j++) {
             // starts searching at cell where word would start
-            if (board[i][j] === word[0] && this.wordFound === false) {
+            if (board[i][j] === word[0]) {
                 let backtrackSet = new Set();
                 let wordIndex = 0;
-    
-                helperDFS(board, word, wordIndex, i, j, backtrackSet);
+                if (helperDFS(board, word, wordIndex, i, j, backtrackSet)) return true;
             }
         }
     }
 
-    return this.wordFound;
+    return false;
 };
+
+// let board = [
+//     ["C","A","A"],
+//     ["A","A","A"],
+//     ["B","C","D"]]
+// let word = "AAB"
 
 // let board = [
 //     ["a","b"],
@@ -162,12 +168,12 @@ const exist = (board, word) => {
 // ];
 // const word = 'ABCCED'; // true
 
-const board = [
-    ['A', 'B', 'C', 'E'],
-    ['S', 'F', 'C', 'S'],
-    ['A', 'D', 'E', 'E'],
-];
-const word = 'ABCB'; // expected: false
+// const board = [
+//     ['A', 'B', 'C', 'E'],
+//     ['S', 'F', 'C', 'S'],
+//     ['A', 'D', 'E', 'E'],
+// ];
+// const word = 'ABCB'; // expected: false
 
 // let board = [['a', 'b']];
 // let word = 'ba'; // expected: true
@@ -191,11 +197,11 @@ const word = 'ABCB'; // expected: false
 // ];
 // let word = 'baaa'; // expected: false
 
-// let board = [
-//     ['A', 'B', 'C', 'E'],
-//     ['S', 'F', 'E', 'S'],
-//     ['A', 'D', 'E', 'E'],
-// ];
-// let word = 'ABCESEEEFS'; // expected: true
+let board = [
+    ['A', 'B', 'C', 'E'],
+    ['S', 'F', 'E', 'S'],
+    ['A', 'D', 'E', 'E'],
+];
+let word = 'ABCESEEEFS'; // expected: true
 
 console.log(exist(board, word));
