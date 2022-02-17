@@ -60,72 +60,114 @@ const exist = (board, word) => {
      * - inside DFS boundary check is NEEDED
      */
 
-    const helperDFS = (board, word, wordIndex, i, j, backtrackSet, wordFound) => {      
-        let currentCell = `${i}${j}`;
+    const helperDFS = (board, word, wordIndex, i, j, backtrackSet) => {      
+        let currentCell = `${i}${j}`
+
+        // console.log('this.wordFound: ', this.wordFound)
+        // console.log('currentCell: ', currentCell)
 
         // if boundaries met, end the DFS, free up the current cell in backtrack set
-        if (i < 0 || i >= board.length || 
-            j < 0 || j >= board[0].length || 
-            backtrackSet.has(currentCell) || 
-            wordIndex >= word.length ||
-            wordFound) {
+        if (i < 0 || 
+            i >= board.length || 
+            j < 0 || 
+            j >= board[0].length || 
+            wordIndex >= word.length || 
+            this.wordFound === true) {
 
             backtrackSet.delete(currentCell);
-            return wordFound;
+            return;
         }
-
-        let currentLetter = board[i][j];
-
+        
         backtrackSet.add(currentCell);
-
+        wordIndex++;
+        let nextLetter = word[wordIndex];
+    
         // word found
-        if (currentLetter === word[wordIndex] && wordIndex === word.length) {
-            console.log('word was found!')
-            wordFound = true;
-            return wordFound;
+        if (wordIndex === word.length) {
+            // console.log('word was found!')
+            this.wordFound = true;
+            return;
         }
 
-        console.log('currentCell: ', currentCell)
-        console.log('backtrackCEll: ', backtrackSet)
-        console.log('wordFound: ', wordFound)
+        // console.log('backtrackSet.has(currentCell): ', backtrackSet.has(currentCell));
+        // console.log('backtrackSet: ', backtrackSet);
+        // console.log('wordIndex: ', wordIndex)
+        // console.log('word.length: ', word.length)
+        // console.log('board[i][j]: ', board[i][j])
+        // console.log('word[wordIndex]: ', word[wordIndex])
+        // console.log('currentLetter === word[wordIndex]: ', board[i][j] === word[wordIndex])
+        // console.log('backtrackSet: ', backtrackSet)
+        // console.log('*********************************')
 
-        // DFS up down left right
-        helperDFS(board, word, wordIndex++, i - 1, j, backtrackSet, wordFound)
-        helperDFS(board, word, wordIndex++, i + 1, j, backtrackSet, wordFound)
-        helperDFS(board, word, wordIndex++, i, j - 1, backtrackSet, wordFound)
-        helperDFS(board, word, wordIndex++, i, j + 1, backtrackSet, wordFound)
-
+    
+         // DFS up down left right
+        if (i - 1 >= 0 && board[i - 1][j] === nextLetter && !backtrackSet.has(`${i - 1}${j}`) ) {
+            helperDFS(board, word, wordIndex, i - 1, j, backtrackSet)
+        }
+        if (i + 1 < board.length && board[i + 1][j] === nextLetter && !backtrackSet.has(`${i + 1}${j}`) ) {
+            helperDFS(board, word, wordIndex, i + 1, j, backtrackSet)
+        }
+        if (j - 1 >= 0 && board[i][j - 1] === nextLetter && !backtrackSet.has(`${i}${j - 1}`)) {
+            helperDFS(board, word, wordIndex, i, j - 1, backtrackSet)
+        }
+        if (j + 1 < board[0].length && board[i][j + 1] === nextLetter && !backtrackSet.has(`${i}${j + 1}`) ) {
+            helperDFS(board, word, wordIndex, i, j + 1, backtrackSet)
+        } 
+        
         backtrackSet.delete(currentCell);
     };
 
-    let wordFound = false;
+    this.wordFound = false;
     
     // iterate through board
     for (let i = 0; i < board.length; i++) {
         for (let j = 0 ; j < board[0].length; j++) {
-            let backtrackSet = new Set();
-            let wordIndex = 0;
-
-            wordFound = helperDFS(board, word, wordIndex, i, j, backtrackSet, wordFound);
+            // starts searching at cell where word would start
+            if (board[i][j] === word[0] && this.wordFound === false) {
+                let backtrackSet = new Set();
+                let wordIndex = 0;
+    
+                helperDFS(board, word, wordIndex, i, j, backtrackSet);
+            }
         }
     }
-    console.log('word found: ', wordFound)
-    return wordFound;
+
+    return this.wordFound;
 };
+
+// let board = [
+//     ["a","b"],
+//     ["c","d"]]
+// let word = "bacd" // true
+
+// let board = [["a"]]
+// let word = "b" // Output: false
+
+// let board = [
+//     ["A","E"],
+//     ["B","S"],
+//     ["E","E"]]
+// let word = "SEE" // Output: true
+
+// let board = [
+//     ["A","B","C","E"],
+//     ["S","F","C","S"],
+//     ["A","D","X","E"]];
+// let word = "SEX" // Output: true
 
 // const board = [
 //     ['A', 'B', 'C', 'E'],
 //     ['S', 'F', 'C', 'S'],
 //     ['A', 'E', 'E', 'D'],
 // ];
-// const word = 'ABCCED';
+// const word = 'ABCCED'; // true
 
-// const board = [
-//     ['A', 'B', 'C', 'E'],
-//     ['S', 'F', 'C', 'S'],
-//     ['A', 'D', 'E', 'E'],
-// ];
-// const word = 'ABCB'; // expected: false
+const board = [
+    ['A', 'B', 'C', 'E'],
+    ['S', 'F', 'C', 'S'],
+    ['A', 'D', 'E', 'E'],
+];
+const word = 'ABCB'; // expected: false
 
 // let board = [['a', 'b']];
 // let word = 'ba'; // expected: true
@@ -143,11 +185,11 @@ const exist = (board, word) => {
 // ];
 // let word = 'aaaaa'; // expected: false
 
-let board = [
-        ["A","B","C","E"],
-        ["S","F","C","S"],
-        ["A","D","E","E"]]
-let word = "SEE" // Output: true
+// let board = [
+//     ['a', 'a'],
+//     ['a', 'b'],
+// ];
+// let word = 'baaa'; // expected: false
 
 // let board = [
 //     ['A', 'B', 'C', 'E'],

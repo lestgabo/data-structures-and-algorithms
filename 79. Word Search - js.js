@@ -50,7 +50,11 @@ var exist = function (board, word) {
     const helperDfs = (board, word, wordIndex, i, j, backTrackSet) => {
         let ij = `${i}-${j}`;
         // boundaries;
-        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || wordIndex >= word.length || this.wordFound === true) {
+        if (i < 0 || 
+            i >= board.length ||
+             j < 0 || 
+             j >= board[0].length || 
+             wordIndex >= word.length || this.wordFound === true) {
             backTrackSet.delete(ij);
             return;
         }
@@ -102,36 +106,44 @@ var exist = function (board, word) {
     return this.wordFound;
 };
 
+let board = [["a","b"],["c","d"]]
+let word = "acdb" // true
+
 // const board = [
 //     ['A', 'B', 'C', 'E'],
 //     ['S', 'F', 'C', 'S'],
 //     ['A', 'E', 'E', 'D'],
 // ];
 // const word = 'ABCCED';
+
 // const board = [
 //     ['A', 'B', 'C', 'E'],
 //     ['S', 'F', 'C', 'S'],
 //     ['A', 'D', 'E', 'E'],
 // ];
 // const word = 'ABCB'; // expected: false
+
 // let board = [['a', 'b']];
 // let word = 'ba'; // expected: true
+
 // let board = [
 //     ['a', 'a', 'a', 'a'],
 //     ['a', 'a', 'a', 'a'],
 //     ['a', 'a', 'a', 'a'],
 // ];
 // let word = 'aaaaaaaaaaaaa'; // expected: false
+
 // let board = [
 //     ['a', 'a'],
 //     ['a', 'a'],
 // ];
 // let word = 'aaaaa'; // expected: false
-let board = [
-    ['A', 'B', 'C', 'E'],
-    ['S', 'F', 'E', 'S'],
-    ['A', 'D', 'E', 'E'],
-];
-let word = 'ABCESEEEFS'; // expected: true
+
+// let board = [
+//     ['A', 'B', 'C', 'E'],
+//     ['S', 'F', 'E', 'S'],
+//     ['A', 'D', 'E', 'E'],
+// ];
+// let word = 'ABCESEEEFS'; // expected: true
 
 console.log(exist(board, word));
