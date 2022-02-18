@@ -47,11 +47,51 @@ function TreeNode(val, left, right) {
  */
 
 const isSameTree = (p, q) => {
-    
+    let pVals = [];
+    let qVals = [];
+
+    // left right root
+    const postOrder = (root, pVals, qVals) => {
+        if (!root) { 
+            if (pVals) pVals.push(null)
+            if (qVals) qVals.push(null)
+            return;
+        }
+
+        postOrder(root.left, pVals, qVals);
+        postOrder(root.right, pVals, qVals);
+        console.log('root.val: ', root.val)
+        if (pVals) pVals.push(root.val)
+        if (qVals) qVals.push(root.val)
+    } 
+    console.log('p: ', p)
+    console.log('q: ', q)
+    postOrder(p, pVals, null);
+    postOrder(q, null, qVals);
+
+    console.log('pVals: ', pVals)
+    console.log('qVals: ', qVals)
+    const longer = Math.max(pVals.length, qVals.length);
+    // compare vals
+    for (let i = 0; i < longer; i++) {
+        console.log('pVals[i]: ', pVals[i])
+        console.log('qVals[i]: ', qVals[i])
+        console.log('***********')
+        if (pVals[i] !== qVals[i]) return false;
+    }
+
+    return true;
 };
+
+const p = new TreeNode(null);
+const q = new TreeNode(0);
 
 // const p = new TreeNode(2, new TreeNode(2));
 // const q = new TreeNode(2, new TreeNode(2));
-const p = new TreeNode(1, new TreeNode(2), new TreeNode(3));
-const q = new TreeNode(1, new TreeNode(1), new TreeNode(3));
+
+// const p = new TreeNode(1, new TreeNode(2));
+// const q = new TreeNode(1, null, new TreeNode(2));
+
+// const p = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+// const q = new TreeNode(1, new TreeNode(1), new TreeNode(3));
 console.log(isSameTree(p, q));
