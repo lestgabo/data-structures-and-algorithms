@@ -55,11 +55,67 @@ Constraints:
  */
 
 const numDecodings = (s) => {
-    
+  /**  
+   * use DP 
+   * - our dp needs to look 2 places back
+   * - the first code will always be 1, but the 2nd needs to look back 2x
+   *   therefore we need to start with a buffer as our first index to be 1 in the DP
+   *   this will allow the second number to be able to look back 2x
+   * 
+   * - need a code converter? I dont think so, can just use the 
+   *   numbers to check if a letter is possible on look back
+   *
+   */ 
+  
+  // edge
+  if (s[0] === "0") return 0;
+
+  let n = s.length;
+  // very important to initialize the DP size and just fill with 0s
+  let dp = new Array(n + 1).fill(0);
+
+  dp[0] = 1;
+  dp[1] = 1;
+
+  for (let i = 1; i < n; i++) {
+    //   console.log('i : ', i )
+    //   console.log('s[i] : ', s[i] )
+    //   console.log('dp[i] : ', dp[i] )
+    //   console.log('dp[i + 1] before : ' ,dp[i + 1])
+
+      // check if first number is not 0, then are able to add the answer before us 
+      if (s[i] !== "0") {
+          // dp i+1 because we added buffer first index, dp[i] is 1lookback
+          dp[i + 1] += dp[i];
+      }
+      // need to check if the 2lookback is a valid 2digit letter -> 10-26
+      let twoDigit = parseInt(s.substring(i - 1, i + 1), 10)
+
+      if (twoDigit >= 10 && twoDigit <= 26) {
+          dp[i + 1] += dp[i - 1];
+      }
+
+    //   console.log('twoDigit: ' ,twoDigit)
+    //   console.log('twoDigit >= 10 && twoDigit <= 26: ' ,twoDigit >= 10 && twoDigit <= 26)
+    //   console.log('dp[i + 1]: ' ,dp[i + 1])
+    //   console.log('dp[i - 1]: ' ,dp[i - 1])
+    //   console.log('************')
+  }
+  
+//   console.log('dp: ' ,dp)
+
+  // the last index of dp should be all the possible ways to "decode" the numbers
+  return dp[n]
 };
 
 
-Input: s = "12"
-Output: 2
+Input: s = "106"
+Output: 1
+
+// Input: s = "06"
+// Output: 0
+
+// Input: s = "12"
+// Output: 2
 
 console.log(numDecodings(s));
