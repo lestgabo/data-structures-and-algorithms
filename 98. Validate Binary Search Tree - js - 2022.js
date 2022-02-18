@@ -44,12 +44,13 @@ const isValidBST = (root) => {
 
     let result = [];
     const inOrder = (root) => {
-        if (root) {
-            if (root.left) inOrder(root.left);
-            // console.log('val: ', root.val)
-            result.push(root.val);
-            if (root.right) inOrder(root.right);
-        }
+        if (!root) return
+
+        inOrder(root.left);
+        // console.log('val: ', root.val)
+        result.push(root.val);
+        inOrder(root.right);
+        
     }
     inOrder(root);
     // console.log('result: ', result);
@@ -72,7 +73,7 @@ function TreeNode(val, left, right) {
     this.right = right === undefined ? null : right;
 }
 
-const root = new TreeNode(2, new TreeNode(2));
+// const root = new TreeNode(2, new TreeNode(2));
 // const root = new TreeNode(2, new TreeNode(1), new TreeNode(3));
-// const root = new TreeNode(5, new TreeNode(1), new TreeNode(4, new TreeNode(3), new TreeNode(6)));
+const root = new TreeNode(5, new TreeNode(1), new TreeNode(4, new TreeNode(3), new TreeNode(6)));
 console.log(isValidBST(root));
