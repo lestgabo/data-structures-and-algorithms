@@ -45,11 +45,44 @@ function TreeNode(val, left, right) {
  */
 
 const levelOrder = (root) => {
-    
+    /**
+     * - use BFS (breadth-first search) - ideal but i tots forgot how to do it
+     * - 
+     * - gonna try using hashmap - save the levels as keys
+     */
+
+    let myHash = {};
+    let solution = [];
+
+    const helper = (root, level) => {
+        if (!root) return;
+
+        level += 1;
+        if (!myHash[level]) {
+            myHash[level] = [root.val];
+        } else {
+            myHash[level].push(root.val);
+        }
+        // myHash[`${level}`].push(root.val)
+        console.log('level: ', level);
+        console.log('root val: ', root.val);
+        console.log('****************');
+        helper(root.left, level);
+        helper(root.right, level);
+    }
+
+    helper(root, 0)
+    console.log('myHash: ' ,myHash)
+    Object.values(myHash).map((vals) => {
+        console.log('vals: ', vals)
+        solution.push(vals);
+    })
+    return solution
 };
 
-const root = new TreeNode(null);
+// const root = new TreeNode(null);
 // const root = new TreeNode(2, new TreeNode(2));
 // const root = new TreeNode(1, null, new TreeNode(2));
-// const root = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+const root = new TreeNode(1, new TreeNode(2, new TreeNode(4), new TreeNode(44)), new TreeNode(3, new TreeNode(33), new TreeNode(5, new TreeNode(6), new TreeNode(7))));
+// const root = new TreeNode(1, new TreeNode(2, new TreeNode(4), null), new TreeNode(3, null, new TreeNode(5, new TreeNode(6), new TreeNode(7))));
 console.log(levelOrder(root));
