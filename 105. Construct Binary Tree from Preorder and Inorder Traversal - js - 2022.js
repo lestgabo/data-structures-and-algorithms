@@ -47,9 +47,11 @@ function TreeNode(val, left, right) {
 const buildTree = (preorder, inorder) => {
     /**
      * how creating the binary tree works:
+     * Input:  preorder = [3,9,20,15,7], 
+     *          inorder = [9,3,15,20,7]
+       Output:            [3,9,20,null,null,15,7]
      *  preorder: root -> left -> right
         inorder: left -> root -> right
-
         - the first element in preorder is a root
             - [3] 
         - find that same element in inorder
@@ -64,8 +66,39 @@ const buildTree = (preorder, inorder) => {
             - preorder: 20 15 7
             - inrder 15 20 7
      * 
+     * 2022 notes:
+     * - need to recursively make left and right subtrees within inorder  
+     * - get the roots from preorder
+     * - use hashmap to save inroder index relative to its node because we are
+     *   using it to create new subtrees and need to have a start and end
+     * - need to add boundary check for the start end to return the recursions
+     *   which should be when start becomes greater than end
+     * 
      */
-    
+
+    let myHash = {};
+    inorder.map((node, index) => myHash[node] = index)
+    // console.log(myHash)
+
+    const subtree = (start, end) => {
+        // boundary found, ends the recursion 
+        if (start > end) return null;
+
+        // root is always the next up in line in preorder
+        let root = new TreeNode(preorder.shift());
+
+        // console.log(root)
+
+        // separate the left and right subtrees using root as the middle
+        // this is why hashmap of inorder indexes is needed
+        root.left = subtree(start, myHash[root.val] - 1);
+        root.right = subtree(myHash[root.val] + 1, end);
+
+        return root;
+    }
+
+    // full tree
+    return subtree(0, inorder.length - 1)
 };
 
 // const root = new TreeNode(5, new TreeNode(3, new TreeNode(2, new TreeNode(1)), new TreeNode(4)), new TreeNode(6));
