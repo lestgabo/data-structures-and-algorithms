@@ -33,8 +33,34 @@ Constraints:
  * @return {number}
  */
 const maxProfit =  (prices) => {
-    
+    /**
+     * - do one pass -> just iterate normally
+     * - have a  minimum for bought which checks if minimum is lesser than current day
+     * - minimum updates only if current day has a lower price
+     * - also have a maximum for keeping track of max profit
+     * - max is compared with current price minus current min
+     *   (calculate before updating for new min)
+     */
+    let min = Math.min();
+    let max = Math.max();
+
+    // edge
+    if (prices.length === 1) return 0;
+
+    for (let i = 0; i < prices.length; i++) {
+        let price = prices[i];
+        let profit = price - min;
+        min = Math.min(min, price);
+        max = Math.max(max, profit);
+
+        // console.log('min: ', min)
+        // console.log('max: ', max)
+        // console.log('******')
+    }
+
+    return max > 0 ? max : 0;
 };
 
-let nums = [7, 1, 5, 3, 6, 4];
+// let nums = [7, 1, 5, 3, 6, 4];
+let nums = [7,6,4,3,1]
 console.log(maxProfit(nums));
