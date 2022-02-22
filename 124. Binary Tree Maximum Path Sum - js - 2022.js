@@ -46,10 +46,47 @@ function TreeNode(val, left, right) {
  */
 
 const maxPathSum = (root) => {
-    
+    /**
+     * - simplify with a helper to calculate max gain from a node
+     * - use recursions
+     * - use maximums
+     *     - maxGain left side (compare to 0 because if negative, take 0 and need something to compare to)
+     *     - maxGain right side
+     * - new path price => curr node val + maxGain left + maxGain right
+     * - find maximum of every new path price
+     */
+
+    let maxSum = Math.max();
+    // console.log('maxSum: ', maxSum)
+    const maxGain = (node) => {
+        // edge, if no leaf return 0
+        if (!node) return 0;
+
+        // max gain for left and right -> compare to 0 because we dont want to keep negatives
+        let leftGain = Math.max(maxGain(node.left), 0);
+        let rightGain = Math.max(maxGain(node.right), 0);
+
+        // new price path
+        let newPrice = node.val + leftGain + rightGain;
+
+        // update max sum 
+        maxSum = Math.max(maxSum, newPrice)
+
+        // console.log('node.val: ', node.val)
+        // console.log('leftGain: ', leftGain)
+        // console.log('rightGain: ', rightGain)
+        // console.log('newPrice: ', newPrice)
+        // console.log('maxSum: ', maxSum)
+        // console.log('***********************: ')
+
+        // for recursion: return the max gain if continue the same path
+        return node.val + Math.max(leftGain, rightGain);
+    }
+
+    maxGain(root);
+    return maxSum;
 };
 
-// const root = new TreeNode(5, new TreeNode(3, new TreeNode(2, new TreeNode(1)), new TreeNode(4)), new TreeNode(6));
-const preorder = [3, 9, 20, 15, 7];
-const inorder = [9, 3, 15, 20, 7];
-console.log(maxPathSum(preorder, inorder));
+const root = new TreeNode(-10, new TreeNode(9), new TreeNode(20, new TreeNode(15), new TreeNode(7)));
+
+console.log(maxPathSum(root));
