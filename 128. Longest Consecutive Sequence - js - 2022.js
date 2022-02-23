@@ -32,9 +32,36 @@ Constraints:
  */
 
 const longestConsecutive = (nums) => {
-    
+    /**
+     * - use set -> set lookup is O(n)
+     * - iterate through set (forEach) if curr-1 is not in set then we make a temp = temp+1
+     *   because we are at the least most of a potential consecutive sequence
+     * - then while temp is in set (has) we increment temp+=1
+     * - after while loop (temp not in set anymore) 
+     *   we get the max between curr and new streak (temp - x) = consecutive sequence streak
+     */
+    let numSet = new Set(nums)
+    let streak = 0;
+
+    console.log(numSet)
+
+    numSet.forEach((num) => {
+        // if num - 1 not in set
+        if (!numSet.has(num - 1)) {
+            let temp = num + 1
+            // consecutive nums
+            while (numSet.has(temp)) {
+                temp += 1
+            }
+            // get max streak
+            streak = Math.max(streak, temp - num)
+        }
+    })
+        
+    return streak;
 };
 
-let nums = [100,4,200,1,3,2]
+// let nums = [100,4,200,1,3,2] // 4
+let nums = [0,3,7,2,5,8,4,6,0,1] // 9
 
 console.log(longestConsecutive(nums));
