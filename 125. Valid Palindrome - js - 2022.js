@@ -41,13 +41,39 @@ Constraints:
  * @param {string} s
  * @return {boolean}
  */
+
 const isPalindrome = (s) => {
-    
+    // convert into split chars array so we can use filter 
+    let splitString = s.split('');
+    /**
+     * filter out non-alphanumerics:
+       Here ^ means beginning of string and $ means end of string, and 
+       [0-9a-z]+ means one or more of character from 0 to 9 OR from a to z.
+     */
+    let alphanumerics = splitString.filter((c) => c.match(/^[a-zA-Z0-9]+$/) )
+
+    // make reverse and lowercase
+    let normal = alphanumerics.join('').toLowerCase();
+    let reversed = alphanumerics.reverse().join('').toLowerCase();
+
+    // console.log('alphanumerics: ', alphanumerics)
+    // console.log('splitString: ', splitString)
+    // console.log('normal: ', normal)
+    // console.log('reversed: ', reversed)
+
+    // compare
+    for (let i = 0; i < normal.length; i++) {
+        if (normal[i] !== reversed[i]) return false
+    }
+    // valid palindrome
+    return true;
 };
 
 
 
-let s = '0P';
+let s = 'Bananab';
+// let s = ' ';
+// let s = 'A man, a plan, a canal: Panama';
 
 // let s = 'A man, a plan, a canal: Panama';
 console.log(isPalindrome(s));
