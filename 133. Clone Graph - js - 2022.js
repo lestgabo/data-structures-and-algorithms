@@ -60,7 +60,7 @@ Constraints:
  */
 
 // Definition for a Node.
-const Node = (val, neighbors) => {
+function Node(val, neighbors){
     this.val = val === undefined ? 0 : val;
     this.neighbors = neighbors === undefined ? [] : neighbors;
 };
@@ -71,10 +71,91 @@ const Node = (val, neighbors) => {
  */
 
 const cloneGraph = (node) => {
+    /**
+     * - use hashmap -> to save a clone of current node to check if visited or not
+     * - recursion -> we will recursively call this function again for each neighbor
+     * - hmm hard to test locally because of making nodes myself -> will use leetcode's IDE
+     */
+    let visited = {};
+
+    const helper = (node) => {
+        // base case
+        if (!node) return null;
     
+        // not yet visited, create clone, no neighbors
+        if (!visited[node.val]) {
+            let cloneNode = new Node(node.val, [])
+            visited[node.val] = cloneNode;
+            
+            // recursion - iterate through neighbors
+            if (node.neighbors) {
+                visited[node.val].neighbors = node.neighbors.map((neighbor) => helper(neighbor));
+            }           
+        }
+        
+        // already visited - return the cloned node
+        return visited[node.val]
+    }
+
+    return helper(node);
 };
 
-Input: adjList = [[2,4],[1,3],[2,4],[1,3]]
+let one, two, three, four;
+one = new Node(1, [two, four])
+two = new Node(2, [one, three])
+three = new Node(3, [two, four])
+four = new Node(4, [one, three])
+// Input: adjList = [[2,4],[1,3],[2,4],[1,3]]
+Input: adjList = [one, two, three, four]
 Output: [[2,4],[1,3],[2,4],[1,3]]
 
 console.log(cloneGraph(adjList));
+
+
+/**
+
+        // console.log('node: ', node)
+        // base case
+        if (!node) return null;
+    
+        console.log('visited: ', visited)
+        
+        // not yet visited, create clone, no neighbors
+        if (!visited[node.val]) {
+            let cloneNode = new Node(node.val, [])
+            visited[node.val] = cloneNode;
+            visited[node.val].neighbors = node.neighbors.map((neighbor) => cloneGraph(neighbor));
+        }
+        
+        return visited[node.val]
+
+
+
+const cloneGraph = (node) => {
+
+    
+     let visited = {};
+    
+     const helper = (node) => {
+         // console.log('node: ', node)
+         // base case
+         if (!node) return null;
+     
+         console.log('visited: ', visited)
+         
+         // not yet visited, create clone, no neighbors
+         if (!visited[node.val]) {
+             let cloneNode = new Node(node.val, [])
+             visited[node.val] = cloneNode;
+             visited[node.val].neighbors = node.neighbors.map((neighbor) => {
+                 helper(neighbor)
+             });
+         }
+         
+         return visited[node.val]
+     }
+     // console.log('visited: ', visited)
+     return helper(node)
+ };
+ 
+ */
