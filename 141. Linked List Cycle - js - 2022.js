@@ -44,12 +44,42 @@ function ListNode(val) {
 }
 
 const hasCycle = (head) => {
-    
+    /**
+     * - use 2 pointers, 1 fast and 1 slow
+     * - slow iterates normally while
+     * - fast iterates 2x or 2nexts
+     * - should work because if theres a cycle the slow will eventually 
+     *   catch up to the fast and become equal
+     * - however we will know theres no cycle if fast becomes null or finds an end
+     *   before slow catches up to it
+     * - so an important part is a while loop that keeps updating slow and fast
+     *   until they are equal
+     *   or until fast finds an end or becomes null
+     */
+    if (!head) return false;
+
+    let slow = head;
+    let fast = head.next;
+
+    while (slow !== fast) {
+        // no cycle, found an end
+        if (!fast || !fast.next) return false; 
+
+        // console.log('slow: ', slow.val)
+        // console.log('fast: ', fast.val)
+
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow === fast ? true : false;
 };
 
 head = new ListNode(1);
 head.next = new ListNode(2);
 head.next.next = new ListNode(3);
 head.next.next.next = new ListNode(4);
+// pos = 1 (makes cycle)
 head.next.next.next.next = head.next;
+
+// head = []
 console.log(hasCycle(head));
