@@ -41,6 +41,26 @@ function ListNode(val, next) {
  * @return {void} Do not return anything, modify head in-place instead.
  */
 const reorderList = (head) => {
+
+    const middleOfList = (head) => {
+        if (!head) return;
+
+        let slow = head;
+        let fast = head.next;
+        
+        while(slow != fast) {
+            // fast found null then slow will be at middle of list
+            if (!fast || !fast.next) return slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow; 
+    }
+    const middle = middleOfList(head);
+
+    console.log('head: ', head)
+    console.log('middle: ', middle)
+
     const reverseLinkList = (head) => {
         if (!head) return null;
         
@@ -60,9 +80,11 @@ const reorderList = (head) => {
        // curr is null at the end because its always next in the iteration, we dont return that
         return prev;
     }
-    const reversed = reverseLinkList(head);
+    let tempHead = head;
+    const reversed = reverseLinkList(tempHead);
     console.log('reversed: ', reversed)
-    return reversed;
+
+    // return reversed;
 };
 
 head = new ListNode(1);
