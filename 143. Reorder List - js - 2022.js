@@ -41,32 +41,37 @@ function ListNode(val, next) {
  * @return {void} Do not return anything, modify head in-place instead.
  */
 const reorderList = (head) => {
-    const middleOfList = (head) => {
-        if (!head) return;
+    const middleOfList = (node) => {
+        if (!node) return;
 
-        let slow = head;
-        let fast = head.next;
+        let slow = node;
+        let fast = node;
         
-        while(slow != fast) {
+        while(fast !== null) {
             // fast found null then slow will be at middle of list
-            if (!fast || !fast.next) return slow;
-            slow = slow.next;
-            fast = fast.next.next;
+            if (fast.next !== null && fast.next.next !== null) {
+                slow = slow.next;
+                fast = fast.next.next;
+            } else {
+                fast = null;
+            }
         }
-        return slow; 
+        // fast is now null
+        const middle = slow.next;
+        slow.next = null;
+        return middle; 
     }
     const middle = middleOfList(head);
-    // console.log('head: ', head)
-    // console.log('middle: ', middle)
+    console.log('middle: ', middle)
 
-    const reverseLinkList = (head) => {
-        if (!head) return null;
+    const reverseLinkList = (node) => {
+        if (!node) return null;
         
-        let curr = head;
+        let curr = node;
         let prev = null;
         let next = null
 
-        while(curr != null) {
+        while(curr !== null) {
             // buffer
             next = curr.next;
             // reverse
@@ -84,21 +89,23 @@ const reorderList = (head) => {
     const mergeTwoSortedList = (first, second) => {
         console.log('first: ' , first)
         console.log('second: ' , second)
-        let next = null;
-        while (first != null) {
-            next = first.next;
-            first.next = second;
-            first = next;
+        let firstNext = null;
+        let secondNext = null;
 
-            next = second.next;
-            second.next = first;
-            second = next;
+        while (second !== null) {
+            firstNext = first.next;
+            secondNext = second.next;
+
+            first.next = second;
+            second.next = firstNext;
+
+            first = firstNext;
+            second = secondNext;
         }
     }
     // head is updated in place
     mergeTwoSortedList(head, reversed)
     console.log('head: ', head)
-
 };
 
 head = new ListNode(1);
