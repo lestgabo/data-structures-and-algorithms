@@ -41,15 +41,33 @@ function ListNode(val, next) {
  * @return {void} Do not return anything, modify head in-place instead.
  */
 const reorderList = (head) => {
-    
+    const reverseLinkList = (head) => {
+        if (!head) return null;
+        
+        let curr = head;
+        let prev = null;
+        let next = null
+
+        while(curr != null) {
+            // buffer
+            next = curr.next;
+            // reverse
+            curr.next = prev;
+            // iterate
+            prev = curr;
+            curr = next;
+        }
+       // curr is null at the end because its always next in the iteration, we dont return that
+        return prev;
+    }
+    const reversed = reverseLinkList(head);
+    console.log('reversed: ', reversed)
+    return reversed;
 };
 
 head = new ListNode(1);
 head.next = new ListNode(2);
 head.next.next = new ListNode(3);
 head.next.next.next = new ListNode(4);
-// pos = 1 (makes cycle)
-head.next.next.next.next = head.next;
 
-// head = []
 console.log(reorderList(head));
