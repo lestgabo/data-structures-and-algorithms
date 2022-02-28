@@ -40,42 +40,43 @@ Constraints:
  */
 
 const maxProduct = (nums) => {
-    let left = 0;
-    let N = nums.length;
-    let right = 1;
-
+    /**
+     * most efficient way is DP
+     * - the intuition is that negative numbers can yeet our current product to 
+     *   be the lowest product in our list of products 
+     * - BUT that yeeted product can be recovered to become the BIGGEST product 
+     *   when multipled with another negative number
+     * - therefore, while we store a max product, we also store a min product
+     * - and for every iteration we get the max and min value from 3 different cases
+     *   - current number (for max: by itself is largest)
+     *   - current number * current max (for max: (+) * (+))
+     *   - current number * current min (for max: (-) * (-))
+     */
     // edge
     if (nums.length === 1) return nums[0];
-    if (Array.isArray(nums) && !nums.length) return;
+    if (Array.isArray(nums) && !nums.length) return 0;
 
-    const productOfArray = (subbarray) => {
-        return subbarray.reduce((previousValue, currentValue) => previousValue *= currentValue)
-    }
+    let currentMax = nums[0];
+    let currentMin = nums[0];
+    let previousMax = nums[0];
+    let previousMin = nums[0];
+    let solution = currentMax;
 
-    let products = [nums[0]];
-    while (left !== N) {
+    for (let i = 1; i < nums.length; i++) {
+        let currentNumber = nums[i];
+        currentMax = Math.max(currentNumber, currentNumber * previousMax, currentNumber * previousMin);
+        currentMin = Math.min(currentNumber, currentNumber * previousMax, currentNumber * previousMin);
+
+        previousMax = currentMax;
+        previousMin = currentMin;
+
+        // console.log('currentMax: ', currentMax)
+        // console.log('currentMin: ', currentMin)
+        // console.log('******')
         
-        let latestProduct = products[products.length - 1];
-        let currentProduct = productOfArray(nums.slice(left, right + 1));
-        console.log('left: ', left);
-        console.log('right: ', right);
-        console.log('latestProduct: ', latestProduct);
-        console.log('currentProduct: ', currentProduct);
-        console.log('************');
-        products.push(currentProduct);
-        // right at end
-        if (right === N - 1) {
-            left += 1
-        } else if (currentProduct < latestProduct && latestProduct > 0) {
-            left += 1
-        } else {
-            right += 1;
-        }
+        solution = Math.max(solution, currentMax);
     }
-    products.push(productOfArray(nums))
-    products.push(...nums)
-    console.log('products: ', products)
-    return Math.max(...products)
+    return solution;
 };
 
 // let nums = [100,4,200,1,3,2] // 4
