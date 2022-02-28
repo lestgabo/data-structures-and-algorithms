@@ -40,10 +40,66 @@ Constraints:
  */
 
 const maxProduct = (nums) => {
-    
+    let left = 0;
+    let N = nums.length;
+    let right = 1;
+
+    // edge
+    if (nums.length === 1) return nums[0];
+    if (Array.isArray(nums) && !nums.length) return;
+
+    const productOfArray = (subbarray) => {
+        return subbarray.reduce((previousValue, currentValue) => previousValue *= currentValue)
+    }
+
+    let products = [nums[0]];
+    while (left !== N) {
+        
+        let latestProduct = products[products.length - 1];
+        let currentProduct = productOfArray(nums.slice(left, right + 1));
+        console.log('left: ', left);
+        console.log('right: ', right);
+        console.log('latestProduct: ', latestProduct);
+        console.log('currentProduct: ', currentProduct);
+        console.log('************');
+        products.push(currentProduct);
+        // right at end
+        if (right === N - 1) {
+            left += 1
+        } else if (currentProduct < latestProduct && latestProduct > 0) {
+            left += 1
+        } else {
+            right += 1;
+        }
+    }
+    products.push(productOfArray(nums))
+    products.push(...nums)
+    console.log('products: ', products)
+    return Math.max(...products)
 };
 
 // let nums = [100,4,200,1,3,2] // 4
-let nums = [2,3,-2,4] // 6
+// let nums = [2,3,-2,4] // 6
+
+Input: nums = [1,-2,3,-4,-3,-4,-3]
+Output: 144
+Expected: 432
+
+// Input: nums = [0,2]
+// Output: 0
+// Expected: 2
+
+// Input: nums = [-2,3,-4]
+// Output: 3
+// Expected: 24
+
+// Input: nums = [7,-2,-4]
+// Output: 8
+// Expected: 56
+
+// Input: nums = [-3,0,1,-2]
+// Output: 0
+// Expected: 1
+
 
 console.log(maxProduct(nums));
