@@ -39,23 +39,25 @@ Follow up: If this function is called many times, how would you optimize it?
  * @return {number} - a positive integer
  */
 
-const reverseBits = (num) => {
+const reverseBits = (n) => {
     let result = 0;
-    let count = 32;
-    let x = 0;
-    while (count) {
-        // result << 1; // shift to the left
-        result *= 2; // shift to the left
-        result += num & 1; // & sets num to 1 only if both are 1 (result will be 1 if num is 1)
-        // num /= 2; // shift to the right
-        num >>= 1; // shift to the right
-        console.log(x);
-        count--;
+
+    for (let i = 0; i < 32; i++) {
+        // take the right most bit of n
+        let lastBit = n & 1;
+        // shift our last bit to the left (0 bits are shifted or padded from the right, 101 becomes 101000 if i = 28)
+        let reversedLastBit = lastBit << (31 - i);
+        // insert reversed last bit into result
+        result += reversedLastBit; 
+        // next iteration needed, so drop the right most bit of n to work on next bit
+        n >>>= 1;
     }
-    return result;
+    // fills the left most bit with 0, turns our number into unsigned
+    return result >>> 0;
 };
 
-Input: n = 00000010100101000001111010011100
+// Input: n = 00000010100101000001111010011100
+Input: n = 43261596
 // Output:    964176192 (00111001011110000010100101000000)
 // Explanation: The input binary string 00000010100101000001111010011100 represents 
 // the unsigned integer 43261596, so return 964176192 which its binary representation is 00111001011110000010100101000000.
