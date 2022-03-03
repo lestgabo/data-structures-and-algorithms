@@ -40,9 +40,28 @@ Follow up: If this function is called many times, how would you optimize it?
 */
 
 const numberOf1Bits = (n) => {
-    
+    /**
+     * - shift right most bit of n into variable
+     * - & that bit with a 1, if the result is a 1 (1&1 = 1; 0&1=0) then we found a 1 bit
+     * - increment a counter when a 1 bit is found
+     * - shift out the already counted last bit of n to update it until n becomes 0
+     */
+    let counter = 0;
+
+    while (n != 0) {
+        let lastBit = n & 1;
+        // console.log('lastBit: ', lastBit)
+        // 1&0 = 0 and 1&1 = 1
+        if (lastBit === 1) counter += 1;
+        // update n with its last bit shifted out to the right, padding a 0 on the left most bit
+        n >>>= 1;
+        // console.log('n: ', n)
+    }
+
+    return counter;
 };
 
 // let n = parseInt('00000000000000000000000000001011', 2);
-let n = parseInt('11111111111111111111111111111101', 2);
+let n = parseInt('1101', 2);
+// let n = parseInt('11111111111111111111111111111101', 2);
 console.log(numberOf1Bits(n));
