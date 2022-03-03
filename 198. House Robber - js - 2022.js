@@ -32,16 +32,43 @@ Constraints:
 */
 
 const moneyRobbed = (nums) => {
-    let max_array = Array(nums.length);
-    // DP (Dynamic Programming)
-    // iterate through each house, and decide to rob or not rob, while having a max for each decision
-    // backwards thinking: nums[i] + nums[i-2] => rob,
-    if (nums.length === 0) return 0;
+    /**
+     * DP (Dynamic Programming)
+     * iterate through each house, and decide to rob or not rob, while having a max for each decision
+     * backwards thinking: nums[i] (current) + DP[i-2] (2 houses before's max from DP) => rob,
+     */
     
+    // base cases
+    if (nums.length === 0) return 0;
+    if (nums.length === 1) return nums[0];
+    if (nums.length === 2) return Math.max(nums[0], nums[1]);
+    
+    let maxArray = Array(nums.length);
+    maxArray[0] = nums[0];
+    maxArray[1] = Math.max(nums[0], nums[1]);
+
+    for (let i = 2; i < nums.length; i++) {
+        // rob means current house plus the max of 2 houses before
+        let rob = nums[i] + maxArray[i - 2];
+        // dont rob means just using the previous house
+        let dontRob = maxArray[i - 1];
+
+        // console.log('rob: ', rob)
+        // console.log('dontRob: ', dontRob)
+
+        maxArray[i] = Math.max(rob, dontRob)
+    }
+    // console.log('maxArray: ', maxArray)
+    return maxArray[nums.length - 1];
 };
 
-let nums = [1, 2, 3, 1]; // 4
+
+Input: nums = [2,1,1,2]
+Output: 3
+Expected: 4
+
+// let nums = [1, 2, 3, 1]; // 4
 // let nums = [];
-// let nums = [15, 2, 3];
+// let nums = [15, 2, 3]; // 18
 // let nums = [2, 7, 9, 3, 1];
 console.log(moneyRobbed(nums));
