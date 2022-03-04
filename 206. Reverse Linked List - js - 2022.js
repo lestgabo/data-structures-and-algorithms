@@ -28,7 +28,30 @@ Follow up: A linked list can be reversed either iteratively or recursively. Coul
  */
 
 const reverseListIterative = (head) => {
+    /**
+     * - make a pointer curr instead of using head
+     * - use a temp to save the next node
+     * - also have a variable that stores previous node
+     * - prev and temp(next) will default as null
+     * - important that we iterate until our current node is null 
+     *   (null head means we found the end of the list)
+     * - important to see that at the end our main node from our reversed list 
+     *   will now be prev
+     * - so we retuirn prev because curr at the last step became null 
+     *   (curr.next === null) which ends the while loop
+     */
+    let curr = head;
+    let prev = null;
+    let next = null;
 
+    while (curr) {
+        next = curr.next;
+        curr.next = prev;
+
+        prev = curr;
+        curr = next;
+    }
+    return prev;
 };
 
 const reverseListRecursive = (head) => {
@@ -46,5 +69,5 @@ head.next.next = new ListNode(3);
 head.next.next.next = new ListNode(4);
 head.next.next.next.next = new ListNode(5);
 
-console.log(reverseListIterative(head));
-// console.log(reverseListRecursive(head));
+// console.log(reverseListIterative(head));
+console.log(reverseListRecursive(head));
