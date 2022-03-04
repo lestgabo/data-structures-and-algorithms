@@ -55,7 +55,20 @@ const reverseListIterative = (head) => {
 };
 
 const reverseListRecursive = (head) => {
-
+    /**
+     * - keep recursively calling next head until head is null (go deeper until end of list)
+     * - once head is null, start returning the head back,
+     *   and set its next.next (2nexts) to be itself
+     * - its (reversed) next is determined by the previous node before it (higher in the stack)
+     * - while we set set its actual next to be null as we dont want it pointing anywhere
+     *   because the previous node it will set the current node to be that previous node with next.next 
+     */
+    if (!head || !head.next) return head;
+    let reversedHead = ListNode();
+    reversedHead = reverseListRecursive(head.next);
+    head.next.next = head;
+    head.next = null;
+    return reversedHead; 
 };
 
 function ListNode(val) {
