@@ -71,9 +71,69 @@ const canFinish = (numCourses, prerequisites) => {
      *     - and we just return TRUE
      * 
      */
+    // make object for courses vs its prerequisites
+    let prereqsPerCourse = {}
+    for (let [course, prereqs] of prerequisites) {
+        // console.log('a: ', a)
+        // console.log('b: ', b)
+        prereqsPerCourse[course] ? prereqsPerCourse[course].push(prereqs) : prereqsPerCourse[course] = [prereqs]
+    }
+    // console.log('prereqspercourse: ', prereqsPerCourse)
+
+    // states
+    NOT_VISITED = 0;
+    VISITED = 1; 
+    VISITING = 2;
+    let state = {};
+    // set default states for courses
+    for (let course = 0; course < numCourses; course++) {
+        state[course] = NOT_VISITED;
+    }
+   
+    // dfs 
+    const dfs = (course) => {
+        console.log('course: ', course)
+        // check if visiting - return false (cylcic path found)
+        if (state[course] === VISITING) return false;
+        // check if visited - return true (already visited)
+        if (state[course] === VISITED) return true;
+
+        // update current course state to visiting 
+        state[course] === VISITING;
+
+        // console.log('prereqsPerCourse: ', prereqsPerCourse)
+        console.log('state[course]: ', state[course])
+        // console.log('prereqsPerCourse[course]: ', prereqsPerCourse[course])
+
+        // look through each course's neighbors (prerequisites)
+        Object.keys(prereqsPerCourse[course]).forEach( (prereqs) => {
+            if (prereqs) console.log('prereqs: ', prereqs)   
+            if (!dfs(prereqs)) return false;
+        })
+        console.log('state: ', state)
+        state[course] = VISITED;
+        
+        return true;
+    }
+
+    // check each course
+    for (let course = 0; course < numCourses; course++) {
+        // no prereqs for course then set to empty array
+        if (!prereqsPerCourse[course]) prereqsPerCourse[course] = [];
+    
+        if (state[course] !== VISITED) {
+            if (!dfs(course)) {
+                return false;
+            }
+        }
+    }
+    return true
 };
+
+numCourses = 2;
+prerequisites = [[1,0], [0,1]]
 
 numCourses = 2
 prerequisites = [[1,0]]
 
-console.log(canFinish(numCourse, prerequisites));
+console.log(canFinish(numCourses, prerequisites));
