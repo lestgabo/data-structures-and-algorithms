@@ -83,7 +83,7 @@ const canFinish = (numCourses, prerequisites) => {
         // no prereqs for course then set to empty array
         if (!prereqsPerCourse[course]) prereqsPerCourse[course] = [];
     }
-    console.log('prereqspercourse: ', prereqsPerCourse)
+    // console.log('prereqspercourse: ', prereqsPerCourse)
 
     // states
     NOT_VISITED = 0;
@@ -97,10 +97,10 @@ const canFinish = (numCourses, prerequisites) => {
    
     // dfs 
     const dfs = (course) => {
-        console.log('course: ', course)
-        console.log('state[course]: ', state[course])
-        console.log('state[course] == VISITING: ', state[course] === VISITING)
-        console.log('state[course] == VISITED: ', state[course] === VISITED)
+        // console.log('course: ', course)
+        // console.log('state[course]: ', state[course])
+        // console.log('state[course] == VISITING: ', state[course] === VISITING)
+        // console.log('state[course] == VISITED: ', state[course] === VISITED)
 
         // check if visiting - (cylcic path found)
         if (state[course] === VISITING) return true;
@@ -112,33 +112,31 @@ const canFinish = (numCourses, prerequisites) => {
 
         let cyclic = false;
         // look through each course's neighbors (prerequisites)
-        Object.values(prereqsPerCourse[course]).forEach( (prereqs) => {  
-            console.log('prereqsPerCourse[course]: ', prereqsPerCourse[course])   
-            console.log('prereqs: ', prereqs)   
-            console.log('#####################')   
+        Object.values(prereqsPerCourse[course]).some( (prereqs) => {  
+            // console.log('prereqsPerCourse[course]: ', prereqsPerCourse[course])   
+            // console.log('prereqs: ', prereqs)   
+            // console.log('#####################')   
             // console.log('isNotCyclic after DFS: ', isNotCyclic)
             cyclic = dfs(prereqs)
-            console.log('cyclic: ', cyclic)
+            // console.log('cyclic: ', cyclic)
             if (cyclic) return true;
         })
+        // console.log('**************')
 
-        console.log('**************')
         // update course
         state[course] = VISITED;
 
         return cyclic;
-        // return isNotCyclic ? true : false;
     }
 
     // check each course
     for (let course = 0; course < numCourses; course++) {
-        console.log('state: ', state)
+        // console.log('state: ', state)
         if (state[course] !== VISITED) {
             if (dfs(course)) {
-                console.log('helloooo we have a cycle!!!!')
+                // console.log('helloooo we have a cycle!!!!')
                 return false;
             }
-            // isNotCyclic = dfs(course, isNotCyclic)
         }
     }
     return true;
@@ -150,11 +148,9 @@ const canFinish = (numCourses, prerequisites) => {
 // prerequisites = [[0,1], [1,0]]
 // prerequisites = [[1,0]]
 
-
 numCourses = 3
 prerequisites = [[1,0],[1,2],[0,1]]
 Output: true
 Expected: false
-
 
 console.log(canFinish(numCourses, prerequisites));
