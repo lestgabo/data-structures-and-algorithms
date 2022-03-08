@@ -78,7 +78,12 @@ const canFinish = (numCourses, prerequisites) => {
         // console.log('b: ', b)
         prereqsPerCourse[course] ? prereqsPerCourse[course].push(prereqs) : prereqsPerCourse[course] = [prereqs]
     }
-    // console.log('prereqspercourse: ', prereqsPerCourse)
+    // add the courses that dont need prerequisites
+    for (let course = 0; course < numCourses; course++) {
+        // no prereqs for course then set to empty array
+        if (!prereqsPerCourse[course]) prereqsPerCourse[course] = [];
+    }
+    console.log('prereqspercourse: ', prereqsPerCourse)
 
     // states
     NOT_VISITED = 0;
@@ -93,47 +98,63 @@ const canFinish = (numCourses, prerequisites) => {
     // dfs 
     const dfs = (course) => {
         console.log('course: ', course)
-        // check if visiting - return false (cylcic path found)
-        if (state[course] === VISITING) return false;
-        // check if visited - return true (already visited)
-        if (state[course] === VISITED) return true;
+        console.log('state[course]: ', state[course])
+        console.log('state[course] == VISITING: ', state[course] === VISITING)
+        console.log('state[course] == VISITED: ', state[course] === VISITED)
+
+        // check if visiting - (cylcic path found)
+        if (state[course] === VISITING) return true;
+        // check if visited - (already visited)
+        if (state[course] === VISITED) return false;
 
         // update current course state to visiting 
-        state[course] === VISITING;
+        state[course] = VISITING;
 
-        // console.log('prereqsPerCourse: ', prereqsPerCourse)
-        console.log('state[course]: ', state[course])
-        // console.log('prereqsPerCourse[course]: ', prereqsPerCourse[course])
-
+        let cyclic = false;
         // look through each course's neighbors (prerequisites)
-        Object.keys(prereqsPerCourse[course]).forEach( (prereqs) => {
-            if (prereqs) console.log('prereqs: ', prereqs)   
-            if (!dfs(prereqs)) return false;
+        Object.values(prereqsPerCourse[course]).forEach( (prereqs) => {  
+            console.log('prereqsPerCourse[course]: ', prereqsPerCourse[course])   
+            console.log('prereqs: ', prereqs)   
+            console.log('#####################')   
+            // console.log('isNotCyclic after DFS: ', isNotCyclic)
+            cyclic = dfs(prereqs)
+            console.log('cyclic: ', cyclic)
+            if (cyclic) return true;
         })
-        console.log('state: ', state)
+
+        console.log('**************')
+        // update course
         state[course] = VISITED;
-        
-        return true;
+
+        return cyclic;
+        // return isNotCyclic ? true : false;
     }
 
     // check each course
     for (let course = 0; course < numCourses; course++) {
-        // no prereqs for course then set to empty array
-        if (!prereqsPerCourse[course]) prereqsPerCourse[course] = [];
-    
+        console.log('state: ', state)
         if (state[course] !== VISITED) {
-            if (!dfs(course)) {
+            if (dfs(course)) {
+                console.log('helloooo we have a cycle!!!!')
                 return false;
             }
+            // isNotCyclic = dfs(course, isNotCyclic)
         }
     }
-    return true
+    return true;
 };
 
-numCourses = 2;
-prerequisites = [[1,0], [0,1]]
+// numCourses = 4;
+// prerequisites = [[0,1], [1,2], [1,3]]
+// numCourses = 2;
+// prerequisites = [[0,1], [1,0]]
+// prerequisites = [[1,0]]
 
-numCourses = 2
-prerequisites = [[1,0]]
+
+numCourses = 3
+prerequisites = [[1,0],[1,2],[0,1]]
+Output: true
+Expected: false
+
 
 console.log(canFinish(numCourses, prerequisites));
