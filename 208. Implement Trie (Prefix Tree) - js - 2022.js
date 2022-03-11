@@ -75,5 +75,5 @@ Trie.prototype.startsWith = function(prefix) {
     
 };
 
-
+// seems hard to test here, ill do it in leetcode
 console.log(Trie());
