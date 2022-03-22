@@ -47,17 +47,9 @@ Constraints:
     2. Each node is an object that uses character as keys to connect to other characters
     3. Set isEnd to true for the last character node in a word
 
- */
-
-/**
- * @param {number} numCourses
- * @param {number[][]} prerequisites
- * @return {boolean}
- */
-
-
- var Trie = function() {
-    
+*/
+var Trie = function() {
+    this.root = {};
 };
 
 /** 
@@ -65,15 +57,44 @@ Constraints:
  * @return {void}
  */
 Trie.prototype.insert = function(word) {
-    
+    let node = this.root;
+
+    // inserts word into the trie
+    for (let i = 0; i < word.length; i++) {
+        let char = word[i];
+        if (!node[char]) node[char] = {};
+        node = node[char];
+    }
+
+    node.isEnd = true;
 };
+
+/**
+ * 
+ * @param {string} word 
+ * @returns {node} 
+ */
+Trie.prototype.searchPrefix = function(word) {
+    let node = this.root;
+
+    for (let i = 0; i < word.length; i++) {
+        let char = word[i];
+        if (node[char]) {
+            node = node[char]
+        } else {
+            return null
+        }
+    }
+    return node;
+}
 
 /** 
  * @param {string} word
  * @return {boolean}
  */
 Trie.prototype.search = function(word) {
-    
+    let node = this.searchPrefix(word);
+    return (node != null && node.isEnd) ? true : false;
 };
 
 /** 
@@ -81,8 +102,17 @@ Trie.prototype.search = function(word) {
  * @return {boolean}
  */
 Trie.prototype.startsWith = function(prefix) {
-    
+    let node = this.searchPrefix(prefix);
+    return node != null;
 };
+
+/** 
+ * Your Trie object will be instantiated and called as such:
+ * var obj = new Trie()
+ * obj.insert(word)
+ * var param_2 = obj.search(word)
+ * var param_3 = obj.startsWith(prefix)
+ */
 
 // seems hard to test here, ill do it in leetcode
 console.log(Trie());
