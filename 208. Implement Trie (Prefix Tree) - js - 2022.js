@@ -41,6 +41,15 @@ Constraints:
 */
 
 /**
+ * 
+ * Plan is:
+    1. Store the entire trie in an object
+    2. Each node is an object that uses character as keys to connect to other characters
+    3. Set isEnd to true for the last character node in a word
+
+ */
+
+/**
  * @param {number} numCourses
  * @param {number[][]} prerequisites
  * @return {boolean}
